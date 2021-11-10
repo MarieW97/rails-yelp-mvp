@@ -7,4 +7,16 @@
 <p>Address: <%= @restaurant.address %></p>
 <p><%= @restaurant.phone_number %></p>
 
-<%= link_to "Back to list", restaurants_path %>
+<ul class="list-group">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item"><%= review.content %></li>
+  <% end %>
+</ul>
+
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.input :content %>
+  <%= f.input :rating, collection: 0..5 %>
+  <%= f.submit %>
+<% end %>
+
+<%= link_to "Back to list", restaurants_path, class: "btn btn-primary" %>
